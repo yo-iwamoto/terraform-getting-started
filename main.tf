@@ -13,11 +13,12 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-830c94e3"
-  instance_type = "t2.micro"
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
 
-  tags = {
-    Name = "ExampleAppServerInstance"
+  bucket = "my-bucket-from-tf"
+
+  versioning = {
+    enabled = false
   }
 }
